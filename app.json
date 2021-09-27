@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "poc-chat-list",
-    "slug": "poc-chat-list",
+    "name": "ungifted-chat",
+    "slug": "ungifted-chat",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

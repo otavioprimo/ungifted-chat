@@ -1,21 +1,31 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, View, Text } from 'react-native';
+import comunicadoAdapter from './src/Adapters/ComunicadoAdapter';
+import ChatTypes from './src/types/ChatTypes';
+
+import Chat from './src/components/Chat';
+
+const chatType = ChatTypes.default;
+const roles = ['room.admin', 'company.admin', 'company.member']
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
+    <SafeAreaView style={{ flex: 1 }}>
       <StatusBar style="auto" />
-    </View>
+      <View style={{
+        width: '100%',
+        height: 60,
+        backgroundColor: '#c9c9c9'
+      }} ><Text>{chatType.valueOf().toLocaleUpperCase()}</Text></View>
+
+      <Chat
+        userRoles={roles}
+        chatType={chatType}
+        adapters={[
+          comunicadoAdapter
+        ]}        
+      />
+    </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
