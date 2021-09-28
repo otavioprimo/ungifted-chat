@@ -7,15 +7,27 @@ import { Container } from './styles';
 const MESSAGES: Message[] = [
   {
     _id: Math.random().toString(),
-    text: 'Biruleibe 1'
+    text: 'Biruleibe 1',
+    user: {
+      _id: '1234-1234-1234',
+      name: 'Timotim'
+    }
   },
   {
     _id: Math.random().toString(),
-    text: 'Biruleibe 2'
+    text: 'Biruleibe 2',
+    user: {
+      _id: '4321-4321-4321',
+      name: 'Timotim as 7:00'
+    }
   },
   {
     _id: Math.random().toString(),
-    text: 'Biruleibe 3'
+    text: 'Biruleibe 3',
+    user: {
+      _id: '9876-9876-9876',
+      name: 'Timotim as 18:00'
+    }
   }
 ];
 
@@ -27,10 +39,12 @@ const ChatList: React.FC<Props> = (props) => {
   console.log('renderizou chat list')
 
   const renderItem = (data: any) => {
-    return props.chatProps.adapter.renderBubble({
+    return props.chatProps.adapter.renderContainer({
       chatProps: props.chatProps,
       index: data.index,
-      item: data.item,
+      previousMessage: MESSAGES[data.index - 1],
+      message: data.item,
+      nextMessage: MESSAGES[data.index + 1],
     })
   }
 

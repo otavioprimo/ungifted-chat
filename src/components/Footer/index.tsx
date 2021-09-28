@@ -20,20 +20,31 @@ interface Props {
 
 const Footer: React.FC<Props> = ({ chatProps }) => {
   console.log('renderizou footer')
+  const {adapter} = chatProps;
   const [message, setMessage] = useState('');
 
-  if (chatProps.adapter.hideFooter(chatProps)) {
+  const _onSendMessage = () => {
+    adapter.onSendMessage && adapter.onSendMessage(message);
+  }
+
+  if (adapter.hideFooter(chatProps)) {
     return null;
   }
 
   const renderLeftAction = () => {
     if (message.length > 0) {
-      return (<ButtonSend disabled={message.length === 0}>
-        <IconSend />
-      </ButtonSend>)
+      return (
+        <ButtonSend disabled={message.length === 0} onPress={_onSendMessage}>
+          <IconSend />
+        </ButtonSend>
+      )
     }
 
-    return <ButtonAudio><IconAudio /></ButtonAudio>
+    return (
+      <ButtonAudio>
+        <IconAudio />
+      </ButtonAudio>
+    )
 
   }
 

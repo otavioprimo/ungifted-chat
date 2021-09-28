@@ -11,6 +11,7 @@ import ChatAdapter from '../../types/ChatAdapter';
 import ChatTypes from '../../types/ChatTypes';
 
 interface Props {
+  userId: string;
   userRoles: string[],
   chatType: ChatTypes,
   adapters?: ChatAdapter[];
@@ -23,6 +24,7 @@ const Chat: React.FC<Props> = (props) => {
     return {
       userRoles: props.userRoles,
       chatType: props.chatType,
+      userId: props.userId,
       adapter,
     }
 

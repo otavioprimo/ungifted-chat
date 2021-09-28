@@ -5,4 +5,5 @@ export interface ChatProps {
   userRoles: string[],
   chatType: ChatTypes,
   adapter: ChatAdapterDefault;
+  userId: string;
 }

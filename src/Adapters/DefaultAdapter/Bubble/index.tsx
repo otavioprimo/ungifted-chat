@@ -7,7 +7,7 @@ const Bubble: React.FC<ChatItemProps> = (props) => {
   const {adapter} = props.chatProps;
 
   return <Container>
-    {adapter.renderMessage(props)}
+    {adapter.renderText(props)}
   </Container>;
 }
 

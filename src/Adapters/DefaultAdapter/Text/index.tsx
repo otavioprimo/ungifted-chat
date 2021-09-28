@@ -3,11 +3,11 @@ import ChatItemProps from '../../../types/ChatItemProps';
 
 import { Container, TextMessage } from './styles';
 
-const MessageText: React.FC<ChatItemProps> = ({ item }) => {
+const MessageText: React.FC<ChatItemProps> = ({ message }) => {
   return (
     <Container>
       <TextMessage>
-        {item.text} Default
+        {message.text} Default
       </TextMessage>
     </Container>
   );

@@ -9,7 +9,11 @@ interface ChatAdapter {
   hideFooter?: (props: ChatProps) => boolean;
   
   renderBubble?: (props: ChatItemProps) => React.ReactElement;
-  renderMessage?: (props: ChatItemProps) => React.ReactElement;
+  renderText?: (props: ChatItemProps) => React.ReactElement;
+
+  onReplyMessage?: (props: ChatItemProps) => void;
+  onLongPressMessage?: (props: ChatItemProps) => void;
+  onSendMessage?: (text: string) => void;
 }
 
 export default ChatAdapter;

@@ -6,8 +6,9 @@ import ChatTypes from './src/types/ChatTypes';
 
 import Chat from './src/components/Chat';
 
-const chatType = ChatTypes.default;
+const chatType = ChatTypes.comunicados;
 const roles = ['room.admin', 'company.admin', 'company.member']
+const userId = '1234-1234-1234-1234';
 
 export default function App() {
   return (
@@ -20,11 +21,12 @@ export default function App() {
       }} ><Text>{chatType.valueOf().toLocaleUpperCase()}</Text></View>
 
       <Chat
+        userId={userId}
         userRoles={roles}
         chatType={chatType}
         adapters={[
           comunicadoAdapter
-        ]}        
+        ]}
       />
     </SafeAreaView>
   );
