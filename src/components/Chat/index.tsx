@@ -15,6 +15,7 @@ interface Props {
   userRoles: string[],
   chatType: ChatTypes,
   adapters?: ChatAdapter[];
+  chatRef: any;
 }
 
 const Chat: React.FC<Props> = (props) => {
@@ -31,7 +32,7 @@ const Chat: React.FC<Props> = (props) => {
   }, [props.chatType])
 
   const renderChatList = useMemo(() => {
-    return <ChatList chatProps={buildProps()} />
+    return <ChatList ref={props.chatRef} chatProps={buildProps()} />
   }, [])
 
   const renderFooter = useMemo(() => {

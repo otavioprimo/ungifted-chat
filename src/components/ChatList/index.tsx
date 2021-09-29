@@ -1,62 +1,50 @@
-import React from 'react';
+import React, { useState, useImperativeHandle } from 'react';
 import { FlatList } from 'react-native';
 import { ChatProps } from '../../types/ChatProps';
-import Message from '../../types/Message';
+import Message, { MessageStatus } from '../../types/Message';
 import { Container } from './styles';
 
-const MESSAGES: Message[] = [
-  {
-    _id: Math.random().toString(),
-    text: 'Biruleibe 1',
-    user: {
-      _id: '1234-1234-1234',
-      name: 'Timotim'
-    }
-  },
-  {
-    _id: Math.random().toString(),
-    text: 'Biruleibe 2',
-    user: {
-      _id: '4321-4321-4321',
-      name: 'Timotim as 7:00'
-    }
-  },
-  {
-    _id: Math.random().toString(),
-    text: 'Biruleibe 3',
-    user: {
-      _id: '9876-9876-9876',
-      name: 'Timotim as 18:00'
-    }
-  }
-];
 
 interface Props {
   chatProps: ChatProps
 }
 
-const ChatList: React.FC<Props> = (props) => {
+const ChatList: React.FC<any> = (props, ref) => {
   console.log('renderizou chat list')
+  const [messages, setMessages] = useState<Message[]>([]);
+
+  useImperativeHandle(ref, () => ({
+    addMessages: (messages: Message[]) => {
+      setMessages(messages);
+    },
+    updateMessage: (message: Message) => {
+      setMessages(previousMessages => {
+        return previousMessages.map(el => {
+          if (el._id === message._id) el.status = message.status
+          return el;
+        })
+      })
+    }
+  }));
 
   const renderItem = (data: any) => {
     return props.chatProps.adapter.renderContainer({
       chatProps: props.chatProps,
       index: data.index,
-      previousMessage: MESSAGES[data.index - 1],
+      previousMessage: messages[data.index - 1],
       message: data.item,
-      nextMessage: MESSAGES[data.index + 1],
+      nextMessage: messages[data.index + 1],
     })
   }
 
   return <Container>
     <FlatList
-      data={MESSAGES}
+      data={messages}
       inverted
       renderItem={renderItem}
       keyExtractor={item => item._id}
     />
-
   </Container>;
 }
 
-export default React.memo(ChatList);
+export default React.forwardRef(ChatList);

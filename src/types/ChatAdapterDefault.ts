@@ -10,6 +10,9 @@ interface ChatAdapterDefault {
   renderContainer: (props: ChatItemProps) => React.ReactElement;
   renderBubble: (props: ChatItemProps) => React.ReactElement;
   renderText: (props: ChatItemProps) => React.ReactElement;
+  renderFooter: (props: ChatItemProps) => React.ReactElement;
+  renderTime: (props: ChatItemProps) => React.ReactElement;
+  renderStatus: (props: ChatItemProps) => React.ReactElement;
 
   onReplyMessage?: (props: ChatItemProps) => void;
   onLongPressMessage?: (props: ChatItemProps) => void;
