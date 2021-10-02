@@ -1,10 +1,10 @@
 import React, { useMemo } from 'react';
-import ChatItemProps from '../../../types/ChatItemProps';
+import ChatItemProps from '../../../../@types/ChatItemProps';
 
 import { ContainerMessage } from './styles';
 
 const Container: React.FC<ChatItemProps> = (props) => {
-  
+
   const { adapter } = props.chatProps;
 
   const renderContainer = useMemo(() => {

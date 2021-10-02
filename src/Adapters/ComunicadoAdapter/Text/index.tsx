@@ -1,5 +1,5 @@
 import React from 'react';
-import ChatItemProps from '../../../types/ChatItemProps';
+import ChatItemProps from '../../../@types/ChatItemProps';
 
 import { Container, TextMessage } from './styles';
 

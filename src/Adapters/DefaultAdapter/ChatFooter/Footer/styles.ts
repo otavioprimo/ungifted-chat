@@ -5,6 +5,7 @@ export const Container = styled.View`
   width: 100%;
   flex-direction: row;
   padding: 8px;
+  background-color: #F3F4F7;
 `;
 
 export const ContainerLeftAction = styled.View``;

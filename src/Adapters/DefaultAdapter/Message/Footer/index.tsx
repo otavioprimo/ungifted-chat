@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import ChatItemProps from '../../../types/ChatItemProps';
+import ChatItemProps from '../../../@types/ChatItemProps';
 
 import { Container } from './styles';
 

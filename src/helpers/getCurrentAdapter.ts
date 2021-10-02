@@ -1,7 +1,7 @@
-import ChatAdapter from "../types/ChatAdapter";
+import ChatAdapter from "../@types/ChatAdapter";
 import defaultAdapter from "../Adapters/DefaultAdapter";
-import ChatTypes from "../types/ChatTypes";
-import ChatAdapterDefault from "../types/ChatAdapterDefault";
+import ChatTypes from "../@types/ChatTypes";
+import ChatAdapterDefault from "../@types/ChatAdapterDefault";
 
 const getCurrentAdapter = (chatType: ChatTypes, adapters: ChatAdapter[]):ChatAdapterDefault => {
   let adapter = defaultAdapter;

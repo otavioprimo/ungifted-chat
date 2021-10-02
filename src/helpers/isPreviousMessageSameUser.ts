@@ -1,4 +1,4 @@
-import Message from "../types/Message";
+import Message from "../@types/Message";
 
 const isPreviousMessageSameUSer = (
   currentMessage: Message,

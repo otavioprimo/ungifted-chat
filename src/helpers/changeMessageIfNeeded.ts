@@ -1,4 +1,4 @@
-import Message, { MessageStatus } from "../types/Message";
+import Message, { MessageStatus } from "../@types/Message";
 
 const changeMessageIfNeeded = (
   currentMessage: Message,

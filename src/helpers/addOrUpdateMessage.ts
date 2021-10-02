@@ -1,4 +1,4 @@
-import Message from "../types/Message";
+import Message from "../@types/Message";
 import changeMessageIfNeeded from "./changeMessageIfNeeded";
 
 const addOrUpdateMessage = (
@@ -15,7 +15,7 @@ const addOrUpdateMessage = (
     }
   }
 
-  if (!foundItem) copiedMessages.push(newMessage);
+  if (!foundItem) copiedMessages.unshift(newMessage);
   return copiedMessages;
 };
 

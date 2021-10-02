@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import ChatItemProps from '../../../types/ChatItemProps';
+import ChatItemProps from '../../../../@types/ChatItemProps';
 
 import { Container, TextTime } from './styles';
 
@@ -8,7 +8,7 @@ const Time: React.FC<ChatItemProps> = ({ message }) => {
     console.log('render chat - Time', message._id)
     return (
       <Container>
-        <TextTime>12:00</TextTime>
+        <TextTime>{message.date.getHours()}:{message.date.getMinutes()}</TextTime>
       </Container>
     )
   }, [])

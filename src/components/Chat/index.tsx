@@ -2,13 +2,13 @@ import React, { useCallback, useMemo, Ref } from 'react';
 
 import getCurrentAdapter from '../../helpers/getCurrentAdapter';
 
-import Footer from '../Footer';
 import ChatList, { ChatListRef } from '../ChatList';
 
 import { Container } from './styles';
-import { ChatProps } from '../../types/ChatProps';
-import ChatAdapter from '../../types/ChatAdapter';
-import ChatTypes from '../../types/ChatTypes';
+import { ChatProps } from '../../@types/ChatProps';
+import ChatAdapter from '../../@types/ChatAdapter';
+import ChatTypes from '../../@types/ChatTypes';
+import { SendMessage } from '../../@types/SendMessage';
 
 interface Props {
   userId: string;
@@ -38,7 +38,8 @@ const Chat: React.FC<Props> = (props) => {
   }, [])
 
   const renderFooter = useMemo(() => {
-    return <Footer chatProps={buildProps()} />
+    const props = buildProps();
+    return props.adapter.renderChatFooter(props);
   }, [])
 
   return <Container>

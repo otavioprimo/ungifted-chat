@@ -1,9 +1,10 @@
 
-import React, { useState, useImperativeHandle, useCallback, ForwardRefRenderFunction } from 'react';
+import React, { useState, useImperativeHandle, useCallback } from 'react';
 import { FlatList } from 'react-native';
 import addOrUpdateMessage from '../../helpers/addOrUpdateMessage';
-import { ChatProps } from '../../types/ChatProps';
-import Message from '../../types/Message';
+import sortMessages from '../../helpers/sortMessages'
+import { ChatProps } from '../../@types/ChatProps';
+import Message from '../../@types/Message';
 import { Container } from './styles';
 export interface Props {
   chatProps: ChatProps

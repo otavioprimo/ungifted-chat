@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
-import ChatItemProps from '../../../types/ChatItemProps';
-import { MessageStatus } from '../../../types/Message';
+import ChatItemProps from '../../../../@types/ChatItemProps';
+import { MessageStatus } from '../../../../@types/Message';
 
 import { Container, ReadedIcon, ReceivedIcon, SentIcon, WaitingIcon } from './styles';
 

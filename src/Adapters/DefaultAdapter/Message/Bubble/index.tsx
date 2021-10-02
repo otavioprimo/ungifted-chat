@@ -1,7 +1,7 @@
 import React, { useMemo, useCallback } from 'react';
-import ChatItemProps from '../../../types/ChatItemProps';
+import ChatItemProps from '../../../../@types/ChatItemProps';
 
-import { Container } from './styles';
+import { Container, ContainerFeedback } from './styles';
 
 const Bubble: React.FC<ChatItemProps> = (props) => {
   const { adapter } = props.chatProps;
@@ -15,14 +15,17 @@ const Bubble: React.FC<ChatItemProps> = (props) => {
     return (
       <Container
         onLongPress={_onLongPress}
-        isCurrentUser={props.chatProps.userId === props.message.user._id}>
-        {adapter.renderText(props)}
+      >
+        <ContainerFeedback isCurrentUser={props.chatProps.userId === props.message.user._id}>
+        {(props.message.image || props.message.video) && adapter.renderContainerAttachment(props)}
+        {props.message.text ? adapter.renderText(props) : null}
         {adapter.renderFooter(props)}
-      </Container>
+      </ContainerFeedback>
+      </Container >
     )
   }, [])
 
-  return renderBubble;
+return renderBubble;
 }
 
 export default Bubble;
