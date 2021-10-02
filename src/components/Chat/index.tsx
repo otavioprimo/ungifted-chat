@@ -1,9 +1,9 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, Ref } from 'react';
 
 import getCurrentAdapter from '../../helpers/getCurrentAdapter';
 
 import Footer from '../Footer';
-import ChatList from '../ChatList';
+import ChatList, { ChatListRef } from '../ChatList';
 
 import { Container } from './styles';
 import { ChatProps } from '../../types/ChatProps';
@@ -15,8 +15,10 @@ interface Props {
   userRoles: string[],
   chatType: ChatTypes,
   adapters?: ChatAdapter[];
-  chatRef: any;
+  chatRef: Ref<ChatListRef>;
 }
+
+export type ChatRef = ChatListRef;
 
 const Chat: React.FC<Props> = (props) => {
   const buildProps = useCallback((): ChatProps => {

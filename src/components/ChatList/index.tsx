@@ -1,15 +1,19 @@
-import React, { useState, useImperativeHandle } from 'react';
+
+import React, { useState, useImperativeHandle, useCallback, ForwardRefRenderFunction } from 'react';
 import { FlatList } from 'react-native';
+import addOrUpdateMessage from '../../helpers/addOrUpdateMessage';
 import { ChatProps } from '../../types/ChatProps';
-import Message, { MessageStatus } from '../../types/Message';
+import Message from '../../types/Message';
 import { Container } from './styles';
-
-
-interface Props {
+export interface Props {
   chatProps: ChatProps
 }
+export interface ChatListRef {
+  addMessages: (messages: Message[]) => void;
+  addMessage: (message: Message) => void;
+}
 
-const ChatList: React.FC<any> = (props, ref) => {
+const ChatList = React.forwardRef<ChatListRef, Props>((props, ref) => {
   console.log('renderizou chat list')
   const [messages, setMessages] = useState<Message[]>([]);
 
@@ -17,34 +21,31 @@ const ChatList: React.FC<any> = (props, ref) => {
     addMessages: (messages: Message[]) => {
       setMessages(messages);
     },
-    updateMessage: (message: Message) => {
-      setMessages(previousMessages => {
-        return previousMessages.map(el => {
-          if (el._id === message._id) el.status = message.status
-          return el;
-        })
-      })
+    addMessage: (message: Message) => {
+      setMessages(previousMessages => addOrUpdateMessage(previousMessages, message));
     }
   }));
 
-  const renderItem = (data: any) => {
+  const renderItem = useCallback((data: any) => {
     return props.chatProps.adapter.renderContainer({
       chatProps: props.chatProps,
       index: data.index,
-      previousMessage: messages[data.index - 1],
+      previousMessage: messages[data.index + 1],
       message: data.item,
-      nextMessage: messages[data.index + 1],
+      nextMessage: messages[data.index - 1],
     })
-  }
+  }, [messages])
+
+  const keyExtractor = useCallback((item) => item._id, [])
 
   return <Container>
     <FlatList
       data={messages}
       inverted
       renderItem={renderItem}
-      keyExtractor={item => item._id}
+      keyExtractor={keyExtractor}
     />
   </Container>;
-}
+})
 
-export default React.forwardRef(ChatList);
+export default ChatList;

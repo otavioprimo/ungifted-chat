@@ -1,10 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useRef, useEffect } from 'react';
+import React, { createRef, useEffect } from 'react';
 import { SafeAreaView, View, Text, Button } from 'react-native';
 import comunicadoAdapter from './src/Adapters/ComunicadoAdapter';
 import ChatTypes from './src/types/ChatTypes';
 
-import Chat from './src/components/Chat';
+import Chat, { ChatRef } from './src/components/Chat';
 import Message, { MessageStatus } from './src/types/Message';
 
 const chatType = ChatTypes.default;
@@ -12,77 +12,76 @@ const roles = ['room.admin', 'company.admin', 'company.member']
 const userId = '1234-1234-1234-1234';
 
 
-const MESSAGES: Message[] = [
-  {
-    _id: '1',
-    text: 'Biruleibe 1',
+const MESSAGES: Message[] = [];
+
+for (let i = 1; i <= 10; i++) {
+  MESSAGES.push({
+    _id: i.toString(),
+    text: 'Biruleibe ' + i,
     date: new Date(),
-    status: MessageStatus.SENT,
+    status: MessageStatus.PENDING,
     user: {
-      _id: '1234-1234-1234-1234',
-      name: 'Timotim'
-    }
-  },
-  {
-    _id: '2',
-    text: 'Biruleibe 2',
-    date: new Date(),
-    status: MessageStatus.SENT,
-    user: {
-      _id: '4321-4321-4321',
-      name: 'Timotim as 7:00'
-    }
-  },
-  {
-    _id: '3',
-    text: 'Biruleibe 3',
-    date: new Date(),
-    status: MessageStatus.SENT,
-    user: {
-      _id: '9876-9876-9876',
+      _id: i % 2 === 0 ? '9876-9876-9876' : '1234-1234-1234-1234',
       name: 'Timotim as 18:00'
     }
-  },
-  {
-    _id: '4',
-    text: 'Biruleibe 4',
-    date: new Date(),
-    status: MessageStatus.SENT,
-    user: {
-      _id: '9876-9876-9876',
-      name: 'Timotim as 18:00'
-    }
-  }
-];
+  })
+}
 
 export default function App() {
-  const chatRef = useRef();
+  const chatRef = createRef<ChatRef>();
 
   useEffect(() => {
     addMessage();
   }, [])
 
   const addMessage = () => {
-    chatRef.current.addMessages(MESSAGES);
+    chatRef.current?.addMessages(MESSAGES);
   }
 
-  const onPressTeste = () => {
-    const messageToUpdate = {
-      ...MESSAGES[0],
-      status: MessageStatus.READED,
-    };
-    chatRef.current.updateMessage(messageToUpdate);
+  const onPressAdd = () => {
+    for (let i = 15; i <= 20; i++) {
+      const messageToUpdate = {
+        _id: i.toString(),
+        text: 'Biruleibe ' + i,
+        date: new Date(),
+        status: MessageStatus.SENT,
+        user: {
+          _id: '1234-1234-1234-1234',
+          name: 'Timotim'
+        }
+      };
+
+      chatRef.current?.addMessage(messageToUpdate);
+    }
+  }
+
+  const onPressUpdate = () => {
+    for (let i = 0; i <= 10; i++) {
+      const messageToUpdate = {
+        _id: i.toString(),
+        text: 'Biruleibe ' + i,
+        date: new Date(),
+        status: MessageStatus.SENT,
+        user: {
+          _id: '1234-1234-1234-1234',
+          name: 'Timotim'
+        }
+      };
+
+      chatRef.current?.addMessage(messageToUpdate);
+    }
   }
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <StatusBar style="auto" />
+      <StatusBar style="dark" />
       <View style={{
         width: '100%',
-        height: 60,
+        height: 80,
         backgroundColor: '#c9c9c9'
       }} >
-        <Button onPress={onPressTeste} title="MUDA ALGO"></Button>
+        <Button onPress={onPressAdd} title="ADICIONAR ITEMS"></Button>
+        <Button onPress={onPressUpdate} title="ATUALIZAR ITEMS"></Button>
         <Text>{chatType.valueOf().toLocaleUpperCase()}</Text></View>
 
       <Chat

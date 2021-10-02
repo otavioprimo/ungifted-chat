@@ -1,6 +1,10 @@
 import styled from "styled-components/native";
 
-export const Container = styled.View`
+interface ContainerProps {
+  isCurrentUser: boolean;
+}
+
+export const Container = styled.TouchableOpacity<ContainerProps>`
   margin-left: 8px;
   margin-right: 8px;
   margin-top: 4px;

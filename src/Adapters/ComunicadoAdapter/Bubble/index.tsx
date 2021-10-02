@@ -7,7 +7,6 @@ const Bubble: React.FC<ChatItemProps> = (props) => {
   const { adapter } = props.chatProps;
 
   const _onLongPress = useCallback(() => {
-    console.log(adapter.onLongPressMessage)
     adapter.onLongPressMessage && adapter.onLongPressMessage(props);
   }, [])
 

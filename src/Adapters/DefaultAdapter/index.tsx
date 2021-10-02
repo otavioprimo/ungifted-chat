@@ -18,8 +18,8 @@ const defaultAdapter: ChatAdapterDefault = {
   renderFooter: (props) => <Footer {...props} />,
   renderTime: (props) => <Time {...props} />,
   renderStatus: (props) => <Status {...props} />,
-  onSendMessage: () => null,
-  onLongPressMessage: () => null
+  onSendMessage: (text) => console.log('Send text', text),
+  onLongPressMessage: (message) => console.log('Longpress message', message)
 };
 
 export default defaultAdapter;
