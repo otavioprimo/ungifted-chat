@@ -14,6 +14,7 @@ import ChatEvent from '../../Events/ChatEvent';
 import ContainerAttachment from './Message/ContainerAttachment';
 import Image from './Message/Image';
 import Video from './Message/Video';
+import Avatar from './Message/Avatar';
 
 const defaultAdapter: ChatAdapterDefault = {
   chatType: ChatTypes.default,
@@ -26,6 +27,7 @@ const defaultAdapter: ChatAdapterDefault = {
   renderFooter: (props) => <Footer {...props} />,
   renderTime: (props) => <Time {...props} />,
   renderStatus: (props) => <Status {...props} />,
+  renderAvatar: (props) => <Avatar {...props} />,
 
   renderContainerAttachment: (props) => <ContainerAttachment {...props} />,
   renderImage: (props) => <Image {...props} />,

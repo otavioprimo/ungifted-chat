@@ -7,8 +7,8 @@ interface ContainerProps {
 export const Container = styled.TouchableWithoutFeedback``;
 
 export const ContainerFeedback = styled.View<ContainerProps>`
-  margin-left: 8px;
-  margin-right: 8px;
+  margin-left: ${({ isCurrentUser }) => (isCurrentUser ? 0 : 4)}px;
+  margin-right: ${({ isCurrentUser }) => (isCurrentUser ? 4 : 0)}px;
   margin-top: 4px;
   width: 70%;
   border: 1px solid #dbdfe5;
