@@ -4,7 +4,7 @@ import { MessageStatus } from '../../../../@types/Message';
 
 import { Container, ReadedIcon, ReceivedIcon, SentIcon, WaitingIcon } from './styles';
 
-const Status: React.FC<ChatItemProps> = ({ message }) => {
+const Status: React.FC<ChatItemProps> = ({ message, chatProps }) => {
 
   const renderIcon = () => {
     switch (message.status) {
@@ -24,12 +24,17 @@ const Status: React.FC<ChatItemProps> = ({ message }) => {
 
   const renderStatus = useMemo(() => {
     console.log('render chat - Status', message._id);
+
+    const isFromUser = message.user._id === chatProps.userId;
+    if (!isFromUser) return null;
+
     return (
       <Container >
         {renderIcon()}
       </Container>
     )
   }, [message.status])
+
   return renderStatus;
 }
 

@@ -16,6 +16,7 @@ interface ChatAdapter {
   renderContainerAttachment?: (props: ChatItemProps) => React.ReactElement;
   renderImage?: (props: ChatItemProps) => React.ReactElement;
   renderVideo?: (props: ChatItemProps) => React.ReactElement;
+  renderAvatar?: (props: ChatItemProps) => React.ReactElement;
 
   onReplyMessage?: (props: ChatItemProps) => void;
   onLongPressMessage?: (props: ChatItemProps) => void;

@@ -1,7 +1,11 @@
 import styled from 'styled-components/native'
 import {FontAwesome5} from '@expo/vector-icons'
+import {Platform } from 'react-native';
 
-export const Container = styled.View`
+export const Container = styled.KeyboardAvoidingView.attrs({
+  behavior: Platform.OS === "ios" ? "padding" : undefined,
+  keyboardVerticalOffset: Platform.OS === "ios" ? 135 : 0,
+})`
   width: 100%;
   flex-direction: row;
   padding: 8px;

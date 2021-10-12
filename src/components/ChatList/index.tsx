@@ -1,11 +1,10 @@
 
-import React, { useState, useImperativeHandle, useCallback } from 'react';
-import { FlatList } from 'react-native';
+import React, { useState, useImperativeHandle, useCallback, useRef, useMemo } from 'react';
+import { FlatList, NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
 import addOrUpdateMessage from '../../helpers/addOrUpdateMessage';
-import sortMessages from '../../helpers/sortMessages'
 import { ChatProps } from '../../@types/ChatProps';
 import Message from '../../@types/Message';
-import { Container } from './styles';
+import { Container, ScrollButton, IconScrollToBotton } from './styles';
 export interface Props {
   chatProps: ChatProps
 }
@@ -15,8 +14,11 @@ export interface ChatListRef {
 }
 
 const ChatList = React.forwardRef<ChatListRef, Props>((props, ref) => {
-  console.log('renderizou chat list')
+  console.log('renderizou chat list');
+
+  const listRef = useRef<FlatList>();
   const [messages, setMessages] = useState<Message[]>([]);
+  const [showScrollButton, setShowScrollButton] = useState<Boolean>(false);
 
   useImperativeHandle(ref, () => ({
     addMessages: (messages: Message[]) => {
@@ -24,8 +26,38 @@ const ChatList = React.forwardRef<ChatListRef, Props>((props, ref) => {
     },
     addMessage: (message: Message) => {
       setMessages(previousMessages => addOrUpdateMessage(previousMessages, message));
-    }
+    },
   }));
+
+  const renderScrollToBottom = useMemo(() => {
+    if (!showScrollButton) {
+      return null;
+    }
+
+    return (
+      <ScrollButton style={{
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 3,
+        },
+        shadowOpacity: 0.29,
+        shadowRadius: 4.65,
+
+        elevation: 7,
+      }} onPress={() => listRef.current?.scrollToIndex({ animated: true, index: 0 })}>
+        <IconScrollToBotton />
+      </ScrollButton>
+    )
+  }, [showScrollButton])
+
+  const onScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    if (event.nativeEvent.contentOffset.y > 10) {
+      setShowScrollButton(true);
+    } else if (showScrollButton) {
+      setShowScrollButton(false);
+    }
+  }
 
   const renderItem = useCallback((data: any) => {
     return props.chatProps.adapter.renderContainer({
@@ -41,11 +73,15 @@ const ChatList = React.forwardRef<ChatListRef, Props>((props, ref) => {
 
   return <Container>
     <FlatList
+      ref={listRef}
       data={messages}
       inverted
       renderItem={renderItem}
       keyExtractor={keyExtractor}
+      onScroll={onScroll}
+      scrollEventThrottle={160}
     />
+    {renderScrollToBottom}
   </Container>;
 })
 

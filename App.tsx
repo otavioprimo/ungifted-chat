@@ -16,16 +16,22 @@ const userId = '1234-1234-1234-1234';
 
 const MESSAGES: Message[] = [];
 
-for (let i = 1; i <= 10; i++) {
+const USER_AVATAR = `https://i.pravatar.cc/100?u=fake@pravatar.com}`;
+const OTHER_AVATAR =  `https://i.pravatar.cc/100?u=fake_two@pravatar.com`;
+
+for (let i = 1; i <= 20000; i++) {
   const messageDate = new Date(new Date().setMinutes(new Date().getMinutes() - i))
+  const isOtherUser = i % 2 === 0;
+
   MESSAGES.push({
     _id: i.toString(),
     text: 'Biruleibe ' + i,
     date: messageDate,
     status: MessageStatus.PENDING,
     user: {
-      _id: i % 2 === 0 ? '9876-9876-9876' : userId,
-      name: 'Timotim as 18:00'
+      _id: isOtherUser ? '9876-9876-9876' : userId,
+      name: 'Timotim as 18:00',
+      avatar: isOtherUser ? OTHER_AVATAR : USER_AVATAR,
     }
   })
 }
@@ -38,11 +44,11 @@ export default function App() {
 
     ChatEvent.onMessage(message => {
       const newMessage = {
-        _id: (Math.floor(Math.random() * (500 - 11)) + 11).toString(),
+        _id: Math.random().toString(),
         date: new Date(),
         status: MessageStatus.PENDING,
         text: message.text || '',
-        user: { _id: userId, name: 'Timotim da meia noite' },
+        user: { _id: userId, name: 'Timotim da meia noite', avatar: USER_AVATAR },
         image: message?.attachment?.type === 'image' ? message?.attachment?.uri : undefined,
         video: message?.attachment?.type === 'video' ? message?.attachment?.uri : undefined,
       }
@@ -79,23 +85,6 @@ export default function App() {
     chatRef.current?.addMessage(message);
   }
 
-  const onPressUpdate = () => {
-    for (let i = 0; i <= 10; i++) {
-      const messageToUpdate = {
-        _id: i.toString(),
-        text: 'Biruleibe ' + i,
-        date: new Date(),
-        status: MessageStatus.SENT,
-        user: {
-          _id: '1234-1234-1234-1234',
-          name: 'Timotim'
-        }
-      };
-
-      chatRef.current?.addMessage(messageToUpdate);
-    }
-  }
-
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar style="dark" />
@@ -104,7 +93,6 @@ export default function App() {
         height: 80,
         backgroundColor: '#c9c9c9'
       }} >
-        <Button onPress={onPressUpdate} title="ATUALIZAR ITEMS"></Button>
         <Text>{chatType.valueOf().toLocaleUpperCase()}</Text></View>
 
       <Chat

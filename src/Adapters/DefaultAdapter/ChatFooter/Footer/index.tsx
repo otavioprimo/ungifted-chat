@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import { Attachment } from '../../../../@types/Attachment';
 
 import { ChatProps } from '../../../../@types/ChatProps';
